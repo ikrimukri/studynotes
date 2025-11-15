@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Study Notes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            background: linear-gradient(135deg, #F5F1E8, #E8DCC4);
+            color: #3D3428;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #7B92A8, #8B9D83);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Search Box */
+        .search-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #8B9D83;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #7B92A8;
+        }
+
+        /* Subject Section */
+        .subject-section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .subject-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #D4917B;
+            cursor: pointer;
+        }
+
+        .subject-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .subject-title {
+            flex: 1;
+        }
+
+        .subject-title h2 {
+            color: #9B7E6B;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .subject-title p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            color: #8B9D83;
+            transition: transform 0.3s;
+        }
+
+        .subject-section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        /* Chapter Grid */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .subject-section.collapsed .chapters-grid {
+            display: none;
+        }
+
+        /* Chapter Card */
+        .chapter-card {
+            background: linear-gradient(135deg, #F5F1E8, #E8DCC4);
+            padding: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #3D3428;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #7B92A8;
+        }
+
+        .chapter-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .chapter-number {
+            font-size: 0.85rem;
+            color: #8B9D83;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .chapter-card h3 {
+            color: #9B7E6B;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .chapter-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+            .subject-title h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 My Study Notes</h1>
+            <p>Quick access to all my learning resources</p>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search subjects or chapters...">
+        </div>
+
+        <div id="notesContainer">
+            
+            <!-- 
+            ============================================
+            ADD YOUR SUBJECTS HERE - Copy this template:
+            ============================================
+            
+            <div class="subject-section">
+                <div class="subject-header" onclick="toggleSection(this)">
+                    <span class="subject-icon">📖</span>
+                    <div class="subject-title">
+                        <h2>Subject Name</h2>
+                        <p>Brief subject description</p>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                
+                <div class="chapters-grid">
+                    
+                    <a href="notes/subject-chapter1.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 1</div>
+                        <h3>Chapter Title</h3>
+                        <p>Short chapter description.</p>
+                    </a>
+                    
+                    <a href="notes/subject-chapter2.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 2</div>
+                        <h3>Chapter Title</h3>
+                        <p>Short chapter description.</p>
+                    </a>
+                    
+                </div>
+            </div>
+            
+            ============================================
+            -->
+
+            <!-- SUBJECT 1: GOVERNMENT ACCOUNTING -->
+            <div class="subject-section">
+                <div class="subject-header" onclick="toggleSection(this)">
+                    <span class="subject-icon">🏛️</span>
+                    <div class="subject-title">
+                        <h2>Government Accounting</h2>
+                        <p>Bangladesh government accounting system and practices</p>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                
+                <div class="chapters-grid">
+                    <a href="notes/government-accounting.html" class="chapter-card">
+                        <div class="chapter-number">COMPLETE NOTES</div>
+                        <h3>Full Course Material</h3>
+                        <p>All chapters, problems, and examples in one document.</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SUBJECT 2: PHYSICS (EXAMPLE WITH CHAPTERS) -->
+            <div class="subject-section">
+                <div class="subject-header" onclick="toggleSection(this)">
+                    <span class="subject-icon">⚛️</span>
+                    <div class="subject-title">
+                        <h2>Physics</h2>
+                        <p>Classical and modern physics concepts</p>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                
+                <div class="chapters-grid">
+                    
+                    <!-- Uncomment and edit these when you add physics notes -->
+                    <!-- 
+                    <a href="notes/physics-chapter1.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 1</div>
+                        <h3>Motion and Kinematics</h3>
+                        <p>Linear motion, velocity, acceleration, and equations of motion.</p>
+                    </a>
+                    
+                    <a href="notes/physics-chapter2.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 2</div>
+                        <h3>Newton's Laws</h3>
+                        <p>Forces, momentum, and the three laws of motion.</p>
+                    </a>
+                    
+                    <a href="notes/physics-chapter3.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 3</div>
+                        <h3>Work, Energy & Power</h3>
+                        <p>Energy conservation, kinetic and potential energy, power.</p>
+                    </a>
+                    
+                    <a href="notes/physics-chapter4.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 4</div>
+                        <h3>Thermodynamics</h3>
+                        <p>Heat, temperature, laws of thermodynamics, and entropy.</p>
+                    </a>
+                    -->
+                    
+                    <!-- Placeholder when no chapters added yet -->
+                    <div class="chapter-card" style="opacity: 0.6; pointer-events: none;">
+                        <div class="chapter-number">COMING SOON</div>
+                        <h3>Chapters will be added here</h3>
+                        <p>Physics notes coming soon...</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- SUBJECT 3: MATHEMATICS (EXAMPLE) -->
+            <!-- Uncomment this when you want to add math notes -->
+            <!-- 
+            <div class="subject-section">
+                <div class="subject-header" onclick="toggleSection(this)">
+                    <span class="subject-icon">📐</span>
+                    <div class="subject-title">
+                        <h2>Mathematics</h2>
+                        <p>Algebra, calculus, and advanced mathematics</p>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                
+                <div class="chapters-grid">
+                    
+                    <a href="notes/math-chapter1.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 1</div>
+                        <h3>Algebra Basics</h3>
+                        <p>Variables, equations, and functions.</p>
+                    </a>
+                    
+                    <a href="notes/math-chapter2.html" class="chapter-card">
+                        <div class="chapter-number">CHAPTER 2</div>
+                        <h3>Calculus - Derivatives</h3>
+                        <p>Limits, differentiation rules, and applications.</p>
+                    </a>
+                    
+                </div>
+            </div>
+            -->
+
+        </div>
+
+        <footer>
+            <p>💡 Click on subject headers to expand/collapse | Last updated: November 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle subject sections
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        // Search function
+        const searchInput = document.getElementById('searchInput');
+        const notesContainer = document.getElementById('notesContainer');
+
+        searchInput.addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const sections = notesContainer.querySelectorAll('.subject-section');
+
+            sections.forEach(section => {
+                const subjectTitle = section.querySelector('.subject-title h2').textContent.toLowerCase();
+                const subjectDesc = section.querySelector('.subject-title p').textContent.toLowerCase();
+                const chapters = section.querySelectorAll('.chapter-card');
+                
+                let hasMatch = false;
+
+                // Check if subject name matches
+                if (subjectTitle.includes(searchText) || subjectDesc.includes(searchText)) {
+                    hasMatch = true;
+                    section.style.display = 'block';
+                    section.classList.remove('collapsed'); // Expand if subject matches
+                    chapters.forEach(chapter => {
+                        chapter.style.display = 'block';
+                    });
+                } else {
+                    // Check chapters
+                    chapters.forEach(chapter => {
+                        const chapterTitle = chapter.querySelector('h3').textContent.toLowerCase();
+                        const chapterDesc = chapter.querySelector('p').textContent.toLowerCase();
+                        const chapterNum = chapter.querySelector('.chapter-number').textContent.toLowerCase();
+                        
+                        if (chapterTitle.includes(searchText) || 
+                            chapterDesc.includes(searchText) || 
+                            chapterNum.includes(searchText)) {
+                            chapter.style.display = 'block';
+                            hasMatch = true;
+                            section.classList.remove('collapsed'); // Expand if chapter matches
+                        } else {
+                            chapter.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Hide section if no matches
+                if (!hasMatch) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+
+            // If search is empty, show all and reset
+            if (searchText === '') {
+                sections.forEach(section => {
+                    section.style.display = 'block';
+                    const chapters = section.querySelectorAll('.chapter-card');
+                    chapters.forEach(chapter => {
+                        chapter.style.display = 'block';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
